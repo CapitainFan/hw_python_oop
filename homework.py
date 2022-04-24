@@ -21,6 +21,8 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
+    LEN_STEP = 0.65
+    M_IN_KM = 1000
 
     def __init__(self,
                  action: int,
@@ -100,7 +102,7 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     training_type = 'SWM'
-    LEN_STEP = 0.65
+    LEN_STEP = 1.38
     M_IN_KM = 1000
 
     def __init__(self,
