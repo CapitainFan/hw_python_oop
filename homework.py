@@ -118,8 +118,7 @@ def read_package(workout_type: str, data: list):
     }
     if read.get(workout_type) is None:
         return None
-    readdat = read.get(workout_type)(*data)
-    return readdat
+    return read.get(workout_type)(*data)
 
 
 def main(training) -> None:
