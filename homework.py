@@ -140,7 +140,7 @@ def read_package(workout_type: str, data: list) -> Training:
     return type_dict[workout_type](*data)
 
 
-def main(training: Training) -> str:
+def main(training: Training):
     """Главная функция."""
     info = training.show_training_info()
     print(info.get_message())
