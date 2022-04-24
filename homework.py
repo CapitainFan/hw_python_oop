@@ -13,10 +13,10 @@ class InfoMessage:
 
     def get_message(self) -> str:
         return (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration:3f} ч.; '
-                f'Дистанция: {self.distance:3f} км; '
-                f'Ср. скорость: {self.speed:3f} км/ч; '
-                f'Потрачено ккал: {self.calories:3f}.')
+                f'Длительность: {round(self.duration, 3)} ч.; '
+                f'Дистанция: {round(self.distance, 3)} км; '
+                f'Ср. скорость: {round(self.speed, 3)} км/ч; '
+                f'Потрачено ккал: {round(self.calories, 3)}.')
 
 
 class Training:
@@ -57,6 +57,8 @@ class Training:
 class Running(Training):
     '''Тренировка: бег.'''
     training_type = 'RUN'
+    LEN_STEP = 0.65
+    M_IN_KM = 1000
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -72,6 +74,8 @@ class Running(Training):
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     training_type = 'WLK'
+    LEN_STEP = 0.65
+    M_IN_KM = 1000
     '''Получаем высоту спортсмена'''
     def __init__(self,
                  action: int,
@@ -96,6 +100,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
     training_type = 'SWM'
+    LEN_STEP = 0.65
+    M_IN_KM = 1000
 
     def __init__(self,
                  action: int,
@@ -128,7 +134,7 @@ def read_package(workout_type: str, data: list) -> Training:
     return dict_1[workout_type](*data)
 
 
-def main(training: Training) -> None:
+def main(training: Training) -> str:
     """Главная функция."""
     info = training.show_training_info()
     print(info.get_message())
