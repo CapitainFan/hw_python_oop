@@ -127,10 +127,13 @@ def read_package(workout_type: str, data: List[int]):
     return read.get(workout_type)(*data)
 
 
-def main(training) -> None:
+def main(training):
     """Главная функция."""
-    info = training.show_training_info()
-    print(info.get_message())
+    try:
+        info = training.show_training_info()
+        print(info.get_message())
+    except ValueError:
+        print('Утебя ошибка в функции main')
 
 
 if __name__ == '__main__':
