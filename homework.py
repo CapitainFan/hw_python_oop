@@ -1,5 +1,4 @@
-from typing import Type
-from typing import List
+from typing import List, Type
 
 
 class InfoMessage:
@@ -65,10 +64,12 @@ class Running(Training):
         """Получить количество затраченных калорий."""
         return ((self.COEFF_CALORIE_1 * self.get_mean_speed()
                 - self.COEFF_CALORIE_2) * self.weight / self.M_IN_KM
-                * (self.duration * Running.VMIN))
+                * (self.duration * self.VMIN))
 
 
 class SportsWalking(Training):
+    VMIN: int = 60
+
     def __init__(self, action: int, duration: float,
                  weight: float, height: float) -> None:
         super().__init__(action, duration, weight)
@@ -76,12 +77,13 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        coeff_calorie_3 = 0.035
-        coeff_cal_4 = 2
-        coeff_calorie_5 = 0.029
+        coeff_calorie_3: float = 0.035
+        coeff_cal_4: int = 2
+        coeff_calorie_5: float = 0.029
         calories = (coeff_calorie_3 * self.weight
                     + (self.get_mean_speed() ** coeff_cal_4 // self.height)
-                    * coeff_calorie_5 * self.weight) * self.duration * 60
+                    * coeff_calorie_5
+                    * self.weight) * self.duration * self.VMIN
         return calories
 
 
@@ -99,11 +101,11 @@ class Swimming(Training):
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        return (self.action * Swimming.LEN_STEP) / Training.M_IN_KM
+        return (self.action * Swimming.LEN_STEP) / self.M_IN_KM
 
     def get_mean_speed(self):
         """Получить среднюю скорость движения."""
-        return (self.length_pool * self.count_pool / Training.M_IN_KM
+        return (self.length_pool * self.count_pool / self.M_IN_KM
                 / self.duration)
 
     def get_spent_calories(self) -> float:
