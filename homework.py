@@ -17,11 +17,11 @@ class InfoMessage:
         self.calories = calories
 
     def get_message(self) -> str:
-        mess = (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration:.3f} ч.; '
-                f'Дистанция: {self.distance:.3f} км; '
-                f'Ср. скорость: {self.speed:.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:.3f}.')
+        mess = ('Тип тренировки: {0}; '.format(self.training_type)
+                + 'Длительность: {0:.3f} ч.; '.format(self.duration)
+                + 'Дистанция: {0:.3f} км; '.format(self.distance)
+                + 'Ср. скорость: {0:.3f} км/ч; '.format(self.speed)
+                + 'Потрачено ккал: {0:.3f}.'.format(self.calories))
         return mess
 
 
