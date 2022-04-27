@@ -45,7 +45,7 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        pass
+        raise NotImplementedError("Please Implement this method")
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -122,9 +122,10 @@ def read_package(workout_type: str, data: List[int]):
         'WLK': SportsWalking,
         'SWM': Swimming,
     }
-    if read.get(workout_type) is None:
-        return None
-    return read.get(workout_type)(*data)
+    read_workout_type = read.get(workout_type)
+    if read_workout_type is None:
+        return print('Утебя ошибка в функции read_package')
+    return read_workout_type(*data)
 
 
 def main(training):
