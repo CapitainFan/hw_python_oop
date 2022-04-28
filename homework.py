@@ -29,6 +29,7 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP: float = 0.65
     M_IN_KM: int = 1000
+    VMIN: int = 60
 
     def __init__(self, action: int, duration: float, weight: float) -> None:
         self.action = action
@@ -59,7 +60,6 @@ class Running(Training):
     """Тренировка: бег."""
     COEFF_CALORIE_1: int = 18
     COEFF_CALORIE_2: int = 20
-    VMIN: int = 60
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -69,7 +69,9 @@ class Running(Training):
 
 
 class SportsWalking(Training):
-    VMIN: int = 60
+    coeff_calorie_3: float = 0.035
+    coef_cal_4: int = 2
+    coeff_calorie_5: float = 0.029
 
     def __init__(self, action: int, duration: float,
                  weight: float, height: float) -> None:
@@ -78,12 +80,9 @@ class SportsWalking(Training):
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        coeff_calorie_3: float = 0.035
-        coeff_cal_4: int = 2
-        coeff_calorie_5: float = 0.029
-        calories = (coeff_calorie_3 * self.weight
-                    + (self.get_mean_speed() ** coeff_cal_4 // self.height)
-                    * coeff_calorie_5
+        calories = (self.coeff_calorie_3 * self.weight
+                    + (self.get_mean_speed() ** self.coef_cal_4 // self.height)
+                    * self.coeff_calorie_5
                     * self.weight) * self.duration * self.VMIN
         return calories
 
@@ -102,7 +101,7 @@ class Swimming(Training):
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        return (self.action * Swimming.LEN_STEP) / self.M_IN_KM
+        return (self.action * self.LEN_STEP) / self.M_IN_KM
 
     def get_mean_speed(self):
         """Получить среднюю скорость движения."""
@@ -124,7 +123,7 @@ def read_package(workout_type: str, data: List[int]):
     }
     read_workout_type = read.get(workout_type)
     if read_workout_type is None:
-        return print('Утебя ошибка в функции read_package')
+        print('Утебя ошибка в функции read_package')
     return read_workout_type(*data)
 
 
